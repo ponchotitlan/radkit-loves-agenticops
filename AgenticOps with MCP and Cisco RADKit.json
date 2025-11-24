@@ -3,29 +3,47 @@
   "nodes": [
     {
       "parameters": {
+        "trigger": [
+          "app_mention",
+          "any_event"
+        ],
+        "channelId": {
+          "__rl": true,
+          "value": "C09V8UNL8BT",
+          "mode": "list",
+          "cachedResultName": "all-my-network-ops"
+        },
         "options": {}
       },
-      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
-      "typeVersion": 1.3,
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
       "position": [
-        0,
-        0
+        -368,
+        -112
       ],
-      "id": "1f5ed7ac-3873-4bea-a0b3-e4f375c23588",
-      "name": "When chat message received",
-      "webhookId": "876fc517-8aca-478a-a990-5cf126e32963"
+      "id": "73954c5c-c5f7-4228-b7ff-d2a9d90f1e0e",
+      "name": "Slack Trigger",
+      "webhookId": "47d57bc9-602a-4831-a11e-8106c179029d",
+      "credentials": {
+        "slackApi": {
+          "id": "xKFhbBXvH4WMNLHP",
+          "name": "Slack account"
+        }
+      }
     },
     {
       "parameters": {
+        "promptType": "define",
+        "text": "=You are a friendly network operations assistant. Format all responses with Slack markdown:\n- Use *bold* for emphasis\n- Use `backticks` for device names, IPs, commands\n- Use bullet points for lists\n- Keep responses clear and scannable\n\nBe helpful, professional, and conversational.\n\n{{ $json.text }}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3,
       "position": [
-        208,
-        0
+        -160,
+        -112
       ],
-      "id": "cf6061fa-e344-4641-aaa4-260f12fbb6b1",
+      "id": "3f31969a-e5d8-4bb2-a547-849f60e3a722",
       "name": "AI Agent"
     },
     {
@@ -36,35 +54,22 @@
           "mode": "list",
           "cachedResultName": "Claude Haiku 3"
         },
-        "options": {
-          "maxTokensToSample": 2000
-        }
+        "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.3,
       "position": [
-        80,
-        208
+        -272,
+        112
       ],
-      "id": "5c02a78d-5e53-49fb-97b0-eb4208bf191c",
+      "id": "67fe7610-9351-42e9-af42-698050b1569c",
       "name": "Anthropic Chat Model",
       "credentials": {
         "anthropicApi": {
-          "id": "JgdgEkJY46vjqjSl",
+          "id": "BvhN41ybFYduiu0I",
           "name": "Anthropic account"
         }
       }
-    },
-    {
-      "parameters": {},
-      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
-      "typeVersion": 1.3,
-      "position": [
-        224,
-        208
-      ],
-      "id": "e39a35f9-b786-47fc-8f66-1bb770a45a5b",
-      "name": "Simple Memory"
     },
     {
       "parameters": {
@@ -75,16 +80,88 @@
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1.2,
       "position": [
-        384,
-        208
+        128,
+        112
       ],
-      "id": "f6bd3ee9-129f-4c47-99e3-697123a40ef8",
+      "id": "401900bc-8a79-4372-a27a-55386c5a39da",
       "name": "MCP Client"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Slack Trigger').item.json.channel }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -64,
+        112
+      ],
+      "id": "30c4564f-ec12-4d58-88f0-67663242d49f",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C09V8UNL8BT",
+          "mode": "list",
+          "cachedResultName": "all-my-network-ops"
+        },
+        "text": "={{ $json.clean_response }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        320,
+        -112
+      ],
+      "id": "a84a7ae9-4b70-4c74-b40f-31665dde6dda",
+      "name": "Send a message",
+      "webhookId": "0d6b6592-69fb-4d40-ba0e-e990659fa8d2",
+      "credentials": {
+        "slackApi": {
+          "id": "xKFhbBXvH4WMNLHP",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6a31c5cc-5c16-4a69-9f3d-0000d6bdf8ac",
+              "name": "output",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            },
+            {
+              "id": "fa05d1d4-283b-4930-9c40-17cca0ef449d",
+              "name": "clean_response",
+              "value": "=  {{ $json.output.split(']').pop().trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        144,
+        -112
+      ],
+      "id": "d1c23385-dce3-4067-8229-ef6110315e37",
+      "name": "Edit Fields"
     }
   ],
   "pinData": {},
   "connections": {
-    "When chat message received": {
+    "Slack Trigger": {
       "main": [
         [
           {
@@ -106,6 +183,17 @@
         ]
       ]
     },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Simple Memory": {
       "ai_memory": [
         [
@@ -117,12 +205,23 @@
         ]
       ]
     },
-    "MCP Client": {
-      "ai_tool": [
+    "AI Agent": {
+      "main": [
         [
           {
-            "node": "AI Agent",
-            "type": "ai_tool",
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
             "index": 0
           }
         ]
@@ -133,11 +232,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "6488a1c0-8156-4407-8e1d-3c513a9cb853",
+  "versionId": "8fd906d2-b686-4afa-a22a-648bacad4324",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "e63c218016ee6cdd0a63beec6e25a113ea935d26f43d592d360376d15516be91"
+    "instanceId": "4de9a42c87eda9a4c640b17c25b85d3671e6543b0f5e167813e98f66b3cf2d02"
   },
-  "id": "MyPETP3f6hGL1xye",
+  "id": "p24d6HhLlGVMSLWR",
   "tags": []
 }

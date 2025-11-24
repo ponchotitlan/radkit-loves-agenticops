@@ -12,13 +12,12 @@ services:
       - TZ=Europe/Lisbon
       - GENERIC_TIMEZONE=Europe/Lisbon
       
-      # Tunnel configuration
-      - N8N_TUNNEL_ENABLED=true
+      # Webhook URL - Get your static domain from https://dashboard.ngrok.com/cloud-edge/domains
+      # Then replace YOUR-STATIC-DOMAIN below with it (e.g., abc-123-def.ngrok-free.app)
+      - WEBHOOK_URL=https://unglamourous-cannon-nonintoxicative.ngrok-free.dev/
       
-      # Basic configuration
-      - N8N_HOST=0.0.0.0
-      - N8N_PORT=5678
-      - N8N_PROTOCOL=https
+      # Fix webhook permissions issue
+      - N8N_USER_MANAGEMENT_DISABLED=true
       
       # Workflow settings
       - EXECUTIONS_DATA_SAVE_ON_SUCCESS=all
@@ -29,13 +28,28 @@ services:
       # Persist n8n data
       - n8n_data:/home/node/.n8n
       
-    # Optional: Add healthcheck
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5678/healthz"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: ngrok
+    restart: unless-stopped
+    command:
+      - "http"
+      - "n8n:5678"
+      - "--domain=unglamourous-cannon-nonintoxicative.ngrok-free.dev"
+    environment:
+      # Get your auth token from https://dashboard.ngrok.com/get-started/your-authtoken
+      - NGROK_AUTHTOKEN=1hcrz1dq4dPixKCAFM9LOkhwXcd_6LdC5TtR3ejoQuAnNAmv4
+    ports:
+      - "4040:4040"  # ngrok web interface
+    depends_on:
+      - n8n
 
 volumes:
   n8n_data:
