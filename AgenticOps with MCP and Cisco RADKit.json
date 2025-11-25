@@ -4,15 +4,9 @@
     {
       "parameters": {
         "trigger": [
-          "app_mention",
-          "any_event"
+          "app_mention"
         ],
-        "channelId": {
-          "__rl": true,
-          "value": "C09V8UNL8BT",
-          "mode": "list",
-          "cachedResultName": "all-my-network-ops"
-        },
+        "watchWorkspace": true,
         "options": {}
       },
       "type": "n8n-nodes-base.slackTrigger",
@@ -34,7 +28,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=You are a friendly network operations assistant. Format all responses with Slack markdown:\n- Use *bold* for emphasis\n- Use `backticks` for device names, IPs, commands\n- Use bullet points for lists\n- Keep responses clear and scannable\n\nBe helpful, professional, and conversational.\n\n{{ $json.text }}",
+        "text": "=You are a friendly network operations assistant. Format all responses with markdown:\n- Use *bold* for emphasis\n- Use `backticks` for device names, IPs, commands\n- Use bullet points for lists\n- Keep responses clear and scannable\n\nBe helpful, professional, and conversational.\n\n{{ $json.text }}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -106,9 +100,8 @@
         "select": "channel",
         "channelId": {
           "__rl": true,
-          "value": "C09V8UNL8BT",
-          "mode": "list",
-          "cachedResultName": "all-my-network-ops"
+          "value": "={{ $('Slack Trigger').item.json.channel }}",
+          "mode": "id"
         },
         "text": "={{ $json.clean_response }}",
         "otherOptions": {}
@@ -232,7 +225,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "8fd906d2-b686-4afa-a22a-648bacad4324",
+  "versionId": "f21c69a1-f86d-44d2-a02f-f1adcc9ae5bf",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "4de9a42c87eda9a4c640b17c25b85d3671e6543b0f5e167813e98f66b3cf2d02"
