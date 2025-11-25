@@ -12,8 +12,8 @@
       "type": "n8n-nodes-base.slackTrigger",
       "typeVersion": 1,
       "position": [
-        -368,
-        -112
+        -800,
+        -32
       ],
       "id": "73954c5c-c5f7-4228-b7ff-d2a9d90f1e0e",
       "name": "Slack Trigger",
@@ -28,7 +28,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=You are a friendly network operations assistant. Format all responses with markdown:\n- Use *bold* for emphasis\n- Use `backticks` for device names, IPs, commands\n- Use bullet points for lists\n- Keep responses clear and scannable\n\nBe helpful, professional, and conversational.\n\n{{ $json.text }}",
+        "text": "=You are a friendly network operations assistant called \"RADKiteer\". Format all responses with markdown compatible with the messaging platform {{ $json.platform }}.\n\n- Use bold for emphasis\n- Use backticks for device names, IPs, commands\n- Use bullet points for lists\n- Keep responses clear and scannable\n\nBe helpful, professional, and conversational.\n\n{{ $json.message_text }}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -42,49 +42,9 @@
     },
     {
       "parameters": {
-        "model": {
-          "__rl": true,
-          "value": "claude-3-haiku-20240307",
-          "mode": "list",
-          "cachedResultName": "Claude Haiku 3"
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
-      "typeVersion": 1.3,
-      "position": [
-        -272,
-        112
-      ],
-      "id": "67fe7610-9351-42e9-af42-698050b1569c",
-      "name": "Anthropic Chat Model",
-      "credentials": {
-        "anthropicApi": {
-          "id": "BvhN41ybFYduiu0I",
-          "name": "Anthropic account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "endpointUrl": "http://host.docker.internal:8000/sse",
-        "serverTransport": "sse",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
-      "typeVersion": 1.2,
-      "position": [
-        128,
-        112
-      ],
-      "id": "401900bc-8a79-4372-a27a-55386c5a39da",
-      "name": "MCP Client"
-    },
-    {
-      "parameters": {
         "sessionIdType": "customKey",
-        "sessionKey": "={{ $('Slack Trigger').item.json.channel }}",
-        "contextWindowLength": 10
+        "sessionKey": "={{ $json.chat }}",
+        "contextWindowLength": 20
       },
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
@@ -109,8 +69,8 @@
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.3,
       "position": [
-        320,
-        -112
+        608,
+        -32
       ],
       "id": "a84a7ae9-4b70-4c74-b40f-31665dde6dda",
       "name": "Send a message",
@@ -119,6 +79,46 @@
         "slackApi": {
           "id": "xKFhbBXvH4WMNLHP",
           "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://host.docker.internal:8000/sse",
+        "serverTransport": "sse",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.2,
+      "position": [
+        128,
+        112
+      ],
+      "id": "401900bc-8a79-4372-a27a-55386c5a39da",
+      "name": "Cisco RADKit MCP"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-3-haiku-20240307",
+          "mode": "list",
+          "cachedResultName": "Claude Haiku 3"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -272,
+        112
+      ],
+      "id": "67fe7610-9351-42e9-af42-698050b1569c",
+      "name": "Claude LLM",
+      "credentials": {
+        "anthropicApi": {
+          "id": "BvhN41ybFYduiu0I",
+          "name": "Anthropic account"
         }
       }
     },
@@ -145,11 +145,258 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        144,
+        160,
         -112
       ],
       "id": "d1c23385-dce3-4067-8229-ef6110315e37",
-      "name": "Edit Fields"
+      "name": "Prune JSON from LLM"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "event": "created",
+        "filters": {
+          "roomId": "Y2lzY29zcGFyazovL3VzL1JPT00vOGExMmJlMjAtYzlmNS0xMWYwLTkzYzAtMjEyOGM2M2I4MThm"
+        }
+      },
+      "type": "n8n-nodes-base.ciscoWebexTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1200,
+        -240
+      ],
+      "id": "3fb2100b-6ce2-4559-b108-c97f517eea93",
+      "name": "Webex by Cisco Trigger",
+      "webhookId": "dc2b8728-5e16-4ff9-9548-4544add40f6a",
+      "credentials": {
+        "ciscoWebexOAuth2Api": {
+          "id": "wde2ZGPETyQLLBnH",
+          "name": "Cisco Webex account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -352,
+        -112
+      ],
+      "id": "a7ab81da-68a8-4d57-9dbf-290352e6f329",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9e8f25a9-505d-4f14-ac5f-4b7e52c43f94",
+              "name": "platform",
+              "value": "webex",
+              "type": "string"
+            },
+            {
+              "id": "ea14f958-fee6-4176-94fc-d338e22c5c88",
+              "name": "message_text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "89a5b51b-b8c8-4ccc-a213-da48124ee853",
+              "name": "chat",
+              "value": "={{ $json.roomId }}",
+              "type": "string"
+            },
+            {
+              "id": "ecb27a7c-57dc-452b-a992-00f1ca94a42c",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -624,
+        -256
+      ],
+      "id": "2dc6f14e-c328-4f9c-810b-c130073ab43e",
+      "name": "Normalize for Webex"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9e8f25a9-505d-4f14-ac5f-4b7e52c43f94",
+              "name": "platform",
+              "value": "slack",
+              "type": "string"
+            },
+            {
+              "id": "ea14f958-fee6-4176-94fc-d338e22c5c88",
+              "name": "message_text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "89a5b51b-b8c8-4ccc-a213-da48124ee853",
+              "name": "chat",
+              "value": "={{ $json.channel }}",
+              "type": "string"
+            },
+            {
+              "id": "ecb27a7c-57dc-452b-a992-00f1ca94a42c",
+              "name": "id",
+              "value": "={{ $json.event_ts }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -624,
+        -32
+      ],
+      "id": "f4ee5e29-f06c-41aa-94f5-bba3f7598a9f",
+      "name": "Normalize for Slack"
+    },
+    {
+      "parameters": {
+        "url": "=https://webexapis.com/v1/messages/{{ $json.data.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "ciscoWebexOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -800,
+        -256
+      ],
+      "id": "b2a00e6b-e770-4a88-bd5a-a379ee9ec23f",
+      "name": "Get message text",
+      "credentials": {
+        "ciscoWebexOAuth2Api": {
+          "id": "wde2ZGPETyQLLBnH",
+          "name": "Cisco Webex account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b7a569be-2380-4056-9c15-1cb7b5e88924",
+              "leftValue": "={{ $('Merge').item.json.platform }}",
+              "rightValue": "webex",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        336,
+        -112
+      ],
+      "id": "9c8fbdec-a79e-465c-8fe1-64b2549aaee0",
+      "name": "Is Webex?"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://webexapis.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "roomId",
+              "value": "={{ $('Merge').item.json.chat }}"
+            },
+            {
+              "name": "markdown",
+              "value": "={{ $('Prune JSON from LLM').item.json.clean_response }}"
+            },
+            {
+              "name": "parentId",
+              "value": "={{ $('Merge').item.json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        608,
+        -224
+      ],
+      "id": "b12df80a-8381-4893-a9a9-8df98dd6cca9",
+      "name": "POST Bot Webex reply",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CG7pRKk7rxqVBIcW",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f76d371c-0445-4940-9181-92bd8af72831",
+              "leftValue": "={{ $json.data.mentionedPeople }}",
+              "rightValue": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS83NmUyMzA1Ny1mMDQ4LTQzMGYtYjYyOS0yODRlODE0NTY3MTc",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1008,
+        -240
+      ],
+      "id": "dba04ae0-ac0e-4f1c-81cf-3ae59b07aee9",
+      "name": "Is Bot summoned?"
     }
   ],
   "pinData": {},
@@ -158,30 +405,8 @@
       "main": [
         [
           {
-            "node": "AI Agent",
+            "node": "Normalize for Slack",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Anthropic Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "MCP Client": {
-      "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
             "index": 0
           }
         ]
@@ -202,15 +427,110 @@
       "main": [
         [
           {
-            "node": "Edit Fields",
+            "node": "Prune JSON from LLM",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Edit Fields": {
+    "Cisco RADKit MCP": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude LLM": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prune JSON from LLM": {
       "main": [
+        [
+          {
+            "node": "Is Webex?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webex by Cisco Trigger": {
+      "main": [
+        [
+          {
+            "node": "Is Bot summoned?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize for Webex": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize for Slack": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Get message text": {
+      "main": [
+        [
+          {
+            "node": "Normalize for Webex",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Webex?": {
+      "main": [
+        [
+          {
+            "node": "POST Bot Webex reply",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "Send a message",
@@ -219,13 +539,24 @@
           }
         ]
       ]
+    },
+    "Is Bot summoned?": {
+      "main": [
+        [
+          {
+            "node": "Get message text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "f21c69a1-f86d-44d2-a02f-f1adcc9ae5bf",
+  "versionId": "76677c7e-3987-473d-a956-12e931488dc1",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "4de9a42c87eda9a4c640b17c25b85d3671e6543b0f5e167813e98f66b3cf2d02"
