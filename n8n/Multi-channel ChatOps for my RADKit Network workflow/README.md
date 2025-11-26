@@ -382,7 +382,7 @@ b47c77659c82   n8nio/n8n:latest     "tini -- /docker-ent…"   57 minutes ago   
 See [this frustration-free guide!](https://github.com/ponchotitlan/radkit-loves-agenticops/blob/main/n8n/Multi-channel%20ChatOps%20for%20my%20RADKit%20Network%20workflow/slack_setup.md)
 
 ### Webex Setup
-See [this frustration-free guide!]()
+See [this frustration-free guide!](https://github.com/ponchotitlan/radkit-loves-agenticops/blob/main/n8n/Multi-channel%20ChatOps%20for%20my%20RADKit%20Network%20workflow/cisco_webex_setup.md)
 
 ## 📊 Performance Considerations
 
