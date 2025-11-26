@@ -1,6 +1,6 @@
 <h1 align="center">🚀 RADKit 🫰 AgenticOps<br /><br />
 <div align="center">
-<img src="images/radkit_agenticops_logo.png" width="300"/>
+<img src="radkit_agenticops_logo.png" width="300"/>
 </div>
 
 <div align="center">
@@ -14,7 +14,7 @@
 </div></h1>
 
 <div align="center">
-A collection of low-code, AgenticOps workflows based on <strong>n8n, MCP and Cisco RADKit</strong> for some nice Network Automation experiments 🧪
+A collection of <strong>low-code</strong>, AgenticOps workflows based on <strong>n8n, MCP and Cisco RADKit</strong> for some nice Network Automation experiments 🧪
 <br /><br />
 </div>
 
@@ -64,7 +64,7 @@ Each workflow is self-contained with its own configuration and detailed instruct
 
 | Workflow Name | Description | Key Features |
 |---------------|-------------|--------------|
-| **Multi-channel ChatOps for my RADKit Network workflow** | Interact with your Cisco RADKit network through natural language conversations | 💬 Slack integration<br>🔷 Cisco Webex support<br>🤖 LLM-powered interactions<br>🔌 Direct MCP server connectivity |
+| **[Multi-channel ChatOps for my RADKit Network workflow](https://github.com/ponchotitlan/radkit-loves-agenticops/tree/main/n8n/Multi-channel%20ChatOps%20for%20my%20RADKit%20Network%20workflow)** | Interact with your Cisco RADKit network through natural language conversations | 💬 Slack integration<br>🔷 Cisco Webex support<br>🤖 LLM-powered interactions<br>🔌 Direct MCP server connectivity |
 
 ---
 

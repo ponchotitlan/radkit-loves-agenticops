@@ -11,8 +11,9 @@ This workflow creates a unified AI assistant that:
 - 📡 Routes responses back to the appropriate platform automatically
 - ✨ Formats responses with platform-appropriate markdown
 
+</br>
 <div align="center">
-<img src="../../images/chatops_n8n.png"/>
+<img src="images/chatops_n8n.png"/>
 </div>
 
 ## 🏗️ Architecture
@@ -84,11 +85,23 @@ This workflow creates a unified AI assistant that:
 - 🎯 Activates when bot is mentioned or message is posted
 - 🔐 Uses Slack OAuth2 credentials
 
+</br>
+<div align="center">
+<img src="images/slack_trigger_config.png"/>
+</div>
+
 #### Webex Trigger
 - 📥 Listens for messages in specific Webex rooms (filtered by Room ID)
 - 🤖 Filters for bot mentions using IF node
 - 🔍 Fetches full message content via Webex API
 - 🔐 Uses Webex OAuth2 credentials for listening
+
+</br>
+<div align="center">
+<img src="images/webex_trigger_config.png"/></br>
+<img src="images/is_bot_mentioned_config.png"/></br>
+<img src="images/get_message_text_config.png"/>
+</div>
 
 ### 2️⃣ **Normalization Layer**
 
@@ -98,13 +111,24 @@ This workflow creates a unified AI assistant that:
 {
   platform: 'slack' | 'webex',
   message_text: 'User query text',
-  channel_or_room: 'Platform-specific ID',
-  thread_or_message_id: 'For threading replies',
-  person_email: 'Webex only'
+  chat: 'Platform-specific ID',
+  id: 'For threading replies'
 }
 ```
 
+</br>
+<div align="center">
+<img src="images/normalize_for_webex.png"/></br>
+<img src="images/normalize_for_slack.png"/>
+</div>
+</br>
+
 **Merge Node** - Combines normalized data from both platforms into single stream
+
+</br>
+<div align="center">
+<img src="images/merge_config.png"/>
+</div>
 
 ### 3️⃣ **AI Processing Engine**
 
@@ -118,10 +142,47 @@ This workflow creates a unified AI assistant that:
   - Queries device attributes, configurations, status
 - 📝 **System Prompt**: Configured with markdown formatting guidelines
 
+</br>
+<div align="center">
+<img src="images/ai_agent_config.png"/>
+</div>
+</br>
+
+The `AI Agent block` prompt is the following:
+
+```json
+You are a friendly network operations assistant called "RADKiteer". Format all responses with markdown compatible with the messaging platform {{ $json.platform }}.
+
+- Use bold for emphasis
+- Use backticks for device names, IPs, commands
+- Use bullet points for lists
+- Keep responses clear and scannable
+
+Be helpful, professional, and conversational.
+
+{{ $json.message_text }}
+```
+
+</br>
+<div align="center">
+<img src="images/memory_config.png"/></br>
+<img src="images/mcp_server_config.png"/>
+</div>
+</br>
+
+> ⚠️ Notice the usage of the URL `http://host.docker.internal:8000/sse` in the MCP client block. This is because the MCP server is also running as a local Docker container on port 8000 with transport sse. Later on in the documentation it is shown how to deploy it.
+
+
 #### Edit Fields (Clean Response)
 - ✂️ Extracts clean AI response from execution metadata
 - 🧹 Removes tool usage details
 - 📤 Prepares formatted text for sending
+
+</br>
+<div align="center">
+<img src="images/prune_json_config.png"/>
+</div>
+</br>
 
 ### 4️⃣ **Response Router**
 
@@ -130,18 +191,81 @@ This workflow creates a unified AI assistant that:
 - ✅ `True` → Slack path
 - ❌ `False` → Webex path
 
+</br>
+<div align="center">
+<img src="images/is_webex_config.png"/>
+</div>
+</br>
+
 ### 5️⃣ **Reply Nodes**
 
 #### Slack Reply
 - 💬 Sends message to original Slack channel
-- 🧵 Replies in thread using `thread_ts`
+- 🧵 Replies in thread using `channel`
 - ✨ Supports Slack markdown formatting
+
+</br>
+<div align="center">
+<img src="images/send_message_slack_config.png"/>
+</div>
+</br>
 
 #### Webex Reply (HTTP Request)
 - 💬 Sends message via Webex API
 - 🤖 Uses **Bot Access Token** (replies as bot, not user)
 - 🧵 Replies in thread using `parentId`
 - ✨ Supports Webex markdown via `markdown` field
+
+</br>
+<div align="center">
+<img src="images/send_message_webex_01.png"/></br>
+<img src="images/send_message_webex_02.png"/>
+</div>
+</br>
+
+## 💬 Message Flow Example
+
+```
+User in Slack: "@RADKiteer please tell me which are the interfaces available on device p0-2e
+      ↓
+Slack Trigger captures message
+      ↓
+Edit Fields normalizes to standard format
+      ↓
+Merge combines with any Webex messages
+      ↓
+AI Agent:
+  - Receives: "please tell me which are the interfaces available on device p0-2e"
+  - Calls MCP Tool: get_device_attributes(target_device: "p0-2e")
+  - Receives: {device_type: "Cisco IOS-XE", host: "10.48.180.61", ...}
+  - Determines based on device_type the command for fetching all interfaces 
+  - Calls MCP Tool: exec_cli_commands_in_device(cli_commands: "show ip interface brief",target_device: "p0-2e")
+  - Receives: {Vlan1, Vlan1021, GigabitEthernet0/0, GigabitEthernet1/0/1 ...}
+  - Generates response with markdown formatting
+      ↓
+Edit Fields cleans output
+      ↓
+IF node checks platform = 'slack'
+      ↓
+Slack Reply sends formatted response in thread
+      ↓
+User sees: "Based on the device information retrieved for p0-2e, here are the key details:
+* Device Type: Cisco IOS-XE
+* Interfaces:
+  - Vlan1
+  - Vlan1021
+  . . .
+```
+
+<div align="center">
+<img src="images/slack_chat_example.png"/>
+</div></br>
+
+The same experience can be obtained using `Cisco Webex`:
+
+<div align="center">
+<img src="images/webex_chat_example.png"/>
+</div>
 
 ## 🛠️ Technical Details
 
@@ -168,45 +292,6 @@ This workflow creates a unified AI assistant that:
   - Retrieve configurations
   - Check device status
   - Network topology information
-
-### Message Flow Example
-
-```
-User in Slack: "@bot what is the device type of ksp-g02-asr9010-01?"
-      ↓
-Slack Trigger captures message
-      ↓
-Edit Fields normalizes to standard format
-      ↓
-Merge combines with any Webex messages
-      ↓
-AI Agent:
-  - Receives: "what is the device type of ksp-g02-asr9010-01?"
-  - Calls MCP Tool: get_device_attributes("ksp-g02-asr9010-01")
-  - Receives: {device_type: "ASR9010", host: "10.48.180.61", ...}
-  - Generates response with markdown formatting
-      ↓
-Edit Fields cleans output
-      ↓
-IF node checks platform = 'slack'
-      ↓
-Slack Reply sends formatted response in thread
-      ↓
-User sees: "The device ksp-g02-asr9010-01 is an *ASR9010*..."
-```
-
-## 🎨 Features
-
-### ✅ Implemented
-- ✨ Multi-platform support (Slack + Webex)
-- 🧠 Conversational AI with memory
-- 🔧 Network device queries via MCP
-- 🧵 Threaded replies
-- 📝 Markdown formatting
-- 🔄 Automatic platform routing
-- 🤖 Bot identity for Webex replies
-- 🎯 Mention-based activation
-- 📊 Room/channel filtering
 
 ## 🔧 Configuration Requirements
 
@@ -287,6 +372,11 @@ CONTAINER ID   IMAGE                COMMAND                  CREATED          ST
 4d70e20c29b4   ngrok/ngrok:latest   "/nix/store/1qpvcjc0…"   57 minutes ago   Up 57 minutes             0.0.0.0:4040->4040/tcp   ngrok
 b47c77659c82   n8nio/n8n:latest     "tini -- /docker-ent…"   57 minutes ago   Up 57 minutes (healthy)   0.0.0.0:5678->5678/tcp   n8n
 ```
+
+### n8n setup
+
+1. Navigate to your n8n instance on a web browser in the address `127.0.0.1:5678`
+2. Import the `.json` file included in this repository
 
 ### Slack Setup
 1. Create a Workspace in your Slack
