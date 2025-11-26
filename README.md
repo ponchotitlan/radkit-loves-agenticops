@@ -22,12 +22,12 @@ A collection of low-code, AgenticOps workflows based on <strong>n8n, MCP and Cis
 
 ## 🚀 Overview
 
-This repository showcases a series of low-code workflows for interesting use cases that help you manage your Cisco RADKit network!</br>
-**Stay tuned for periodic updates!** All the source code from the Low-code episodes of the [🎥 Hack the RADKit! video series](https://www.youtube.com/playlist?list=PL2k86RlAekM8jm71nvG8aBffeZsew0hF5) is posted here.
+This repository showcases a series of **AI-powered low-code workflows** for interesting use cases that help you manage your Cisco RADKit network!</br></br>
+**Stay tuned for periodic updates!** All the source code from the related episodes of the [🎥 Hack the RADKit! video series](https://www.youtube.com/playlist?list=PL2k86RlAekM8jm71nvG8aBffeZsew0hF5) is posted here.
 
 ---
 
-## 🎯 What we are focusing on?
+## 🎯 What are we focusing on?
 
 - **🧩 Low-Code Approach** - Build complex automation without extensive coding
 - **🤝 Multi-Platform Support** - Works seamlessly across different platforms
