@@ -379,18 +379,7 @@ b47c77659c82   n8nio/n8n:latest     "tini -- /docker-ent…"   57 minutes ago   
 2. Import the `.json` file included in this repository
 
 ### Slack Setup
-1. Create a Workspace in your Slack
-2. Create Slack App at api.slack.com/apps
-3. Add Bot Token Scopes:
-   - `channels:history`
-   - `chat:write`
-   - `groups:history`
-   - `im:history`
-   - `mpim:history`
-4. Enable Event Subscriptions with the URL provided by n8n in the Slack trigger node
-5. Subscribe to bot events: `message.channels`, `app_mention`
-6. Install app to workspace
-7. Copy Bot User OAuth Token to n8n
+See [this frustration-free guide!]()
 
 ### Webex Setup
 **Integration (for receiving messages):**
