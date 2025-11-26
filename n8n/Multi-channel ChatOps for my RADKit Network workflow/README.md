@@ -379,22 +379,10 @@ b47c77659c82   n8nio/n8n:latest     "tini -- /docker-ent…"   57 minutes ago   
 2. Import the `.json` file included in this repository
 
 ### Slack Setup
-See [this frustration-free guide!]()
+See [this frustration-free guide!](https://github.com/ponchotitlan/radkit-loves-agenticops/blob/main/n8n/Multi-channel%20ChatOps%20for%20my%20RADKit%20Network%20workflow/slack_setup.md)
 
 ### Webex Setup
-**Integration (for receiving messages):**
-1. Create Integration at developer.webex.com
-2. Set Redirect URI: `https://your-domain.ngrok-free.dev/rest/oauth2-credential/callback`
-3. Add scopes:
-   - `spark:rooms_read`
-   - `spark:messages_read`
-   - `spark:memberships_read`
-4. Copy Client ID & Secret to n8n
-
-**Bot (for sending replies):**
-1. Create Bot at developer.webex.com
-2. Copy Bot Access Token
-3. Use in HTTP Request node for replies
+See [this frustration-free guide!]()
 
 ## 📊 Performance Considerations
 
