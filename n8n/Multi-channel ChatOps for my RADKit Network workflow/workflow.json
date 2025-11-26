@@ -1,5 +1,5 @@
 {
-  "name": "AgenticOps with MCP and Cisco RADKit",
+  "name": "Multi-Channel ChatOps for Cisco RADKit",
   "nodes": [
     {
       "parameters": {
