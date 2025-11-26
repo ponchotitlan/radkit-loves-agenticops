@@ -1,5 +1,5 @@
 {
-  "name": "Multi-Channel ChatOps for Cisco RADKit",
+  "name": "Multi-Channel ChatOps for my Cisco RADKit network",
   "nodes": [
     {
       "parameters": {
@@ -174,17 +174,6 @@
           "name": "Cisco Webex account"
         }
       }
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.2,
-      "position": [
-        -352,
-        -112
-      ],
-      "id": "a7ab81da-68a8-4d57-9dbf-290352e6f329",
-      "name": "Merge"
     },
     {
       "parameters": {
@@ -396,7 +385,18 @@
         -240
       ],
       "id": "dba04ae0-ac0e-4f1c-81cf-3ae59b07aee9",
-      "name": "Is Bot summoned?"
+      "name": "Is Bot mentioned?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -352,
+        -112
+      ],
+      "id": "a7ab81da-68a8-4d57-9dbf-290352e6f329",
+      "name": "Merge"
     }
   ],
   "pinData": {},
@@ -471,18 +471,7 @@
       "main": [
         [
           {
-            "node": "Is Bot summoned?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge": {
-      "main": [
-        [
-          {
-            "node": "AI Agent",
+            "node": "Is Bot mentioned?",
             "type": "main",
             "index": 0
           }
@@ -540,7 +529,7 @@
         ]
       ]
     },
-    "Is Bot summoned?": {
+    "Is Bot mentioned?": {
       "main": [
         [
           {
@@ -550,13 +539,27 @@
           }
         ]
       ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1,
+    "availableInMCP": false
   },
-  "versionId": "76677c7e-3987-473d-a956-12e931488dc1",
+  "versionId": "d89a7669-3735-43c5-acb8-f342a3824f59",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "4de9a42c87eda9a4c640b17c25b85d3671e6543b0f5e167813e98f66b3cf2d02"
