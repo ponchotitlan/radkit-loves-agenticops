@@ -1,6 +1,6 @@
 # 🤖 Multi-Channel ChatOps for my Cisco RADKit network
 
-A low-code n8n workflow that enables conversational AI interactions with Cisco RADKit network infrastructure across both Slack and Webex platforms, powered by your favourite LLM and the Cisco RADKit Model Context Protocol (MCP) server.
+A low-code n8n workflow that enables conversational AI interactions with Cisco RADKit network infrastructure across both Slack and Webex platforms, powered by your favourite LLM and the [Cisco RADKit Model Context Protocol (MCP) server](https://github.com/CiscoDevNet/radkit-mcp-server-community).
 
 ## 🎯 Overview
 
@@ -89,7 +89,7 @@ This workflow creates a unified AI assistant that:
   - Session key: Channel/Room ID
   - Maintains conversation context per chat
 - 🔧 **9️⃣ Tools**: MCP Server integration
-  - Connects to the [Cisco RADKit SDK](https://github.com/CiscoDevNet/radkit-mcp-server-community)
+  - Connects to the [Cisco RADKit MCP Server](https://github.com/CiscoDevNet/radkit-mcp-server-community)
   - Queries device attributes, configurations, status
 
 </br>
@@ -217,7 +217,7 @@ The same experience can be obtained using `Cisco Webex`:
 - 🐳 **Deployment**: Docker Compose
 
 ### MCP Server Integration
-- 🎯 **Server**: [Cisco RADKit SDK](https://github.com/CiscoDevNet/radkit-mcp-server-community)
+- 🎯 **Server**: [Cisco RADKit MCP Server](https://github.com/CiscoDevNet/radkit-mcp-server-community)
 - 🔌 **Connection**: Direct integration in AI Agent, `sse` transport
 - 🛠️ **Capabilities**: 
   - Query device attributes
