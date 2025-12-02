@@ -1,12 +1,12 @@
 # 🤖 Multi-Channel ChatOps for my Cisco RADKit network
 
-A low-code n8n workflow that enables conversational AI interactions with Cisco RADKit network infrastructure across both Slack and Webex platforms, powered by Claude AI and the Cisco RADKit Model Context Protocol (MCP) server.
+A low-code n8n workflow that enables conversational AI interactions with Cisco RADKit network infrastructure across both Slack and Webex platforms, powered by your favourite LLM and the Cisco RADKit Model Context Protocol (MCP) server.
 
 ## 🎯 Overview
 
 This workflow creates a unified AI assistant that:
 - 💬 Responds to messages in both **Slack** and **Webex** channels
-- 🧠 Uses **Claude AI** with conversational memory
+- 🧠 Uses **a LLM** with conversational memory
 - 🔧 Connects to **Cisco RADKit** via MCP server for real-time network device queries
 - 📡 Routes responses back to the appropriate platform automatically
 - ✨ Formats responses with platform-appropriate markdown
@@ -14,73 +14,23 @@ This workflow creates a unified AI assistant that:
 </br>
 <div align="center">
 <img src="images/chatops_n8n.png"/>
+</div></br>
+
+<div align="center">
+<img src="https://img.shields.io/badge/n8n-Workflow-EA4B71?style=flat-square&logo=n8n&logoColor=white" alt="n8n">
+<img src="https://img.shields.io/badge/Cisco-RADKit-049fd9?style=flat-square&logo=cisco&logoColor=white" alt="Cisco RADKit">
+<img src="https://img.shields.io/badge/MCP-Protocol-000000?style=flat-square&logo=anthropic&logoColor=white" alt="MCP">
+<img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+<img src="https://img.shields.io/badge/Docker-Required-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker">
+<img src="https://img.shields.io/badge/Slack-Enabled-4A154B?style=flat-square&logo=slack&logoColor=white" alt="Slack">
+<img src="https://img.shields.io/badge/Webex-Enabled-0099CC?style=flat-square&logo=webex&logoColor=white" alt="Webex">
 </div>
-
-## 🏗️ Architecture
-
-```
-┌─────────────────┐         ┌──────────────────┐
-│  Slack Trigger  │         │  Webex Trigger   │
-│                 │         │                  │
-│ - Bot mentions  │         │ - Room filter    │
-│ - Channel msgs  │         │ - Bot mentions   │
-└────────┬────────┘         └────────┬─────────┘
-         │                           │
-         │                           ├─► IF: Bot Mentioned?
-         │                           │
-         │                           ├─► HTTP Request: Fetch Message
-         │                           │
-         ├───────────┬───────────────┤
-         │           │               │
-    ┌────▼───────────▼────┐    ┌────▼──────────┐
-    │  Edit Fields (Set)  │    │ Edit Fields   │
-    │                     │    │   (Webex)     │
-    │  Normalize Slack    │    │               │
-    └──────────┬──────────┘    └───────┬───────┘
-               │                       │
-               └───────────┬───────────┘
-                           │
-                    ┌──────▼──────┐
-                    │    Merge    │
-                    │             │
-                    │ Combines    │
-                    │ both inputs │
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────┐
-                    │  AI Agent   │
-                    │             │
-                    │ - Claude AI │
-                    │ - MCP Tools │
-                    │ - Memory    │
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────────┐
-                    │  Edit Fields    │
-                    │                 │
-                    │ Clean AI output │
-                    └──────┬──────────┘
-                           │
-                    ┌──────▼──────┐
-                    │ IF: Platform │
-                    │   Check      │
-                    └──┬────────┬──┘
-                       │        │
-            ┌──────────▼┐      └──────────┐
-            │   Slack   │                 │
-            │   Reply   │            ┌────▼────────┐
-            │           │            │ HTTP Request│
-            │ - Thread  │            │             │
-            │ - Format  │            │ Webex Reply │
-            └───────────┘            │ (as Bot)    │
-                                     └─────────────┘
-```
 
 ## 🔑 Key Components
 
-### 1️⃣ **Trigger Nodes**
+### **Trigger Nodes**
 
-#### Slack Trigger
+#### 1️⃣ Slack Trigger
 - 📥 Listens for messages in configured Slack channels
 - 🎯 Activates when bot is mentioned or message is posted
 - 🔐 Uses Slack OAuth2 credentials
@@ -90,7 +40,7 @@ This workflow creates a unified AI assistant that:
 <img src="images/slack_trigger_config.png"/>
 </div>
 
-#### Webex Trigger
+#### 1️⃣ 2️⃣ 3️⃣ Webex Trigger
 - 📥 Listens for messages in specific Webex rooms (filtered by Room ID)
 - 🤖 Filters for bot mentions using IF node
 - 🔍 Fetches full message content via Webex API
@@ -103,9 +53,9 @@ This workflow creates a unified AI assistant that:
 <img src="images/get_message_text_config.png"/>
 </div>
 
-### 2️⃣ **Normalization Layer**
+### **Normalization Layer**
 
-**Edit Fields (Set) Nodes** - Transform platform-specific data into unified format:
+**4️⃣ Edit Fields (Set) Nodes** - Transform platform-specific data into unified format:
 
 ```javascript
 {
@@ -123,24 +73,24 @@ This workflow creates a unified AI assistant that:
 </div>
 </br>
 
-**Merge Node** - Combines normalized data from both platforms into single stream
+### **Merge Node**
+5️⃣ Combines normalized data from both platforms into single stream
 
 </br>
 <div align="center">
 <img src="images/merge_config.png"/>
 </div>
 
-### 3️⃣ **AI Processing Engine**
+### **AI Processing Engine**
 
-#### AI Agent Node
-- 🧠 **Model**: Claude Sonnet 4.5 (Anthropic)
-- 💾 **Memory**: Window Buffer Memory (10 messages)
+#### 6️⃣ AI Agent Node
+- 🧠 **7️⃣ Model**: For the example, it is Claude Sonnet 4.5 (Anthropic)
+- 💾 **8️⃣ Memory**: Window Buffer Memory (10 messages)
   - Session key: Channel/Room ID
   - Maintains conversation context per chat
-- 🔧 **Tools**: MCP Server integration
+- 🔧 **9️⃣ Tools**: MCP Server integration
   - Connects to the [Cisco RADKit SDK](https://github.com/CiscoDevNet/radkit-mcp-server-community)
   - Queries device attributes, configurations, status
-- 📝 **System Prompt**: Configured with markdown formatting guidelines
 
 </br>
 <div align="center">
@@ -150,7 +100,7 @@ This workflow creates a unified AI assistant that:
 
 The `AI Agent block` prompt is the following:
 
-```json
+```
 You are a friendly network operations assistant called "RADKiteer". Format all responses with markdown compatible with the messaging platform {{ $json.platform }}.
 
 - Use bold for emphasis
@@ -172,21 +122,9 @@ Be helpful, professional, and conversational.
 
 > ⚠️ Notice the usage of the URL `http://host.docker.internal:8000/sse` in the MCP client block. This is because the MCP server is also running as a local Docker container on port 8000 with transport sse. Later on in the documentation it is shown how to deploy it.
 
+### **Response Router**
 
-#### Edit Fields (Clean Response)
-- ✂️ Extracts clean AI response from execution metadata
-- 🧹 Removes tool usage details
-- 📤 Prepares formatted text for sending
-
-</br>
-<div align="center">
-<img src="images/prune_json_config.png"/>
-</div>
-</br>
-
-### 4️⃣ **Response Router**
-
-#### IF Node (Platform Check)
+#### 1️⃣0️⃣ IF Node (Platform Check)
 - 🔀 Routes responses based on originating platform
 - ✅ `True` → Slack path
 - ❌ `False` → Webex path
@@ -197,9 +135,9 @@ Be helpful, professional, and conversational.
 </div>
 </br>
 
-### 5️⃣ **Reply Nodes**
+### **Reply Nodes**
 
-#### Slack Reply
+#### 1️⃣1️⃣ Slack Reply
 - 💬 Sends message to original Slack channel
 - 🧵 Replies in thread using `channel`
 - ✨ Supports Slack markdown formatting
@@ -210,7 +148,7 @@ Be helpful, professional, and conversational.
 </div>
 </br>
 
-#### Webex Reply (HTTP Request)
+#### 1️⃣1️⃣ Webex Reply (HTTP Request)
 - 💬 Sends message via Webex API
 - 🤖 Uses **Bot Access Token** (replies as bot, not user)
 - 🧵 Replies in thread using `parentId`
@@ -269,20 +207,14 @@ The same experience can be obtained using `Cisco Webex`:
 
 ## 🛠️ Technical Details
 
+<div align="center">
+<img src="images/chatops_arch.png"/>
+</div>
+
 ### Network Configuration
-- 🌐 **Tunnel**: ngrok with static domain
+- 🌐 **Tunnel**: ngrok with custom domain
 - 🔗 **Webhook URL**: `https://your-domain.ngrok-free.dev/`
 - 🐳 **Deployment**: Docker Compose
-- ⚙️ **Environment**: 
-  - `WEBHOOK_URL` - Public ngrok URL
-  - `N8N_USER_MANAGEMENT_DISABLED=true` - Fixes webhook permissions
-  - `TZ=Europe/Lisbon` - Timezone configuration
-
-### Authentication
-| Platform | Trigger Auth | Reply Auth | Notes |
-|----------|-------------|------------|-------|
-| **Slack** | OAuth2 | OAuth2 | Same credential for both |
-| **Webex** | OAuth2 (Integration) | Bot Access Token | Different credentials! |
 
 ### MCP Server Integration
 - 🎯 **Server**: [Cisco RADKit SDK](https://github.com/CiscoDevNet/radkit-mcp-server-community)
@@ -293,15 +225,13 @@ The same experience can be obtained using `Cisco Webex`:
   - Check device status
   - Network topology information
 
-## 🔧 Configuration Requirements
+## 🔧 Setup
 
 ### Prerequisites
-1. ☁️ n8n instance (self-hosted or cloud)
-2. 🔑 Anthropic API key (for Claude)
-3. 🎮 Cisco RADKit SDK with MCP server
-4. 💬 Slack workspace with bot app
-5. 💬 Webex workspace with bot
-6. 🌐 ngrok account (free tier works)
+1. 🔑 LLM API key with topped-up balance
+2. 🔧 Active Cisco RADKit service
+3. 👤 At least one remote user onboarded on your RADKit service
+4. 🌐 ngrok account (free tier works)
 
 ### Cisco RADKit SDK with MCP server
 1. Git clone the project [radkit-mcp-server-community](https://github.com/CiscoDevNet/radkit-mcp-server-community)
@@ -355,9 +285,10 @@ INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 
 1. Replace the following fields of the `docker-compose.yml` file of this repository with your values:
 ```bash
-WEBHOOK_URL=https://your-domain.ngrok-free.dev/
-TZ=<your-timezone>
-GENERIC_TIMEZONE=<your-timezone>
+- YOUR-STATIC-DOMAIN (Get it at https://dashboard.ngrok.com/cloud-edge/domains)
+- YOUR_NGROK_TOKEN (Get it at https://dashboard.ngrok.com/get-started/your-authtoken)
+- TZ=<your timezone code>
+- GENERIC_TIMEZONE=<your timezone>
 ```
 
 2. Run the docker-compose services
@@ -379,10 +310,10 @@ b47c77659c82   n8nio/n8n:latest     "tini -- /docker-ent…"   57 minutes ago   
 2. Import the `.json` file included in this repository
 
 ### Slack Setup
-See [this frustration-free guide!](https://github.com/ponchotitlan/radkit-loves-agenticops/blob/main/n8n/Multi-channel%20ChatOps%20for%20my%20RADKit%20Network%20workflow/slack_setup.md)
+✅💬 See [this frustration-free guide!](https://github.com/ponchotitlan/radkit-loves-agenticops/blob/main/n8n/Multi-channel%20ChatOps%20for%20my%20RADKit%20Network%20workflow/slack_setup.md)
 
 ### Webex Setup
-See [this frustration-free guide!](https://github.com/ponchotitlan/radkit-loves-agenticops/blob/main/n8n/Multi-channel%20ChatOps%20for%20my%20RADKit%20Network%20workflow/cisco_webex_setup.md)
+✅💬 See [this frustration-free guide!](https://github.com/ponchotitlan/radkit-loves-agenticops/blob/main/n8n/Multi-channel%20ChatOps%20for%20my%20RADKit%20Network%20workflow/cisco_webex_setup.md)
 
 ## 📊 Performance Considerations
 
@@ -424,7 +355,7 @@ Built with:
 - [Cisco RADKit SDK](https://developer.cisco.com) - Network automation
 - [ngrok](https://ngrok.com) - Secure tunneling
 
-> ⚠️ Check the video [🎥 Hack the RADKit! Chatting with My Network via FastMCP](https://www.youtube.com/watch?v=lsj05owx2Q0) for more information about the [radkit-mcp-server-community](https://github.com/CiscoDevNet/radkit-mcp-server-community) Cisco RADKit MCP Server!
+> ✅ Check the video [🎥 Hack the RADKit! Chatting with My Network via FastMCP](https://www.youtube.com/watch?v=lsj05owx2Q0) for more information about the [radkit-mcp-server-community](https://github.com/CiscoDevNet/radkit-mcp-server-community) Cisco RADKit MCP Server!
 
 ---
 

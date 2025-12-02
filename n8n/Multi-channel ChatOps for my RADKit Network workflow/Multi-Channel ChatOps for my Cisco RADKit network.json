@@ -63,13 +63,13 @@
           "value": "={{ $('Slack Trigger').item.json.channel }}",
           "mode": "id"
         },
-        "text": "={{ $json.clean_response }}",
+        "text": "={{ $json.output }}",
         "otherOptions": {}
       },
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.3,
       "position": [
-        608,
+        432,
         -32
       ],
       "id": "a84a7ae9-4b70-4c74-b40f-31665dde6dda",
@@ -124,35 +124,6 @@
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "6a31c5cc-5c16-4a69-9f3d-0000d6bdf8ac",
-              "name": "output",
-              "value": "={{ $json.output }}",
-              "type": "string"
-            },
-            {
-              "id": "fa05d1d4-283b-4930-9c40-17cca0ef449d",
-              "name": "clean_response",
-              "value": "=  {{ $json.output.split(']').pop().trim() }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        160,
-        -112
-      ],
-      "id": "d1c23385-dce3-4067-8229-ef6110315e37",
-      "name": "Prune JSON from LLM"
-    },
-    {
-      "parameters": {
         "resource": "message",
         "event": "created",
         "filters": {
@@ -201,6 +172,12 @@
               "id": "ecb27a7c-57dc-452b-a992-00f1ca94a42c",
               "name": "id",
               "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "787a6217-7941-4e1b-a79c-dd85899ce1d1",
+              "name": "",
+              "value": "",
               "type": "string"
             }
           ]
@@ -307,7 +284,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        336,
+        160,
         -112
       ],
       "id": "9c8fbdec-a79e-465c-8fe1-64b2549aaee0",
@@ -328,7 +305,7 @@
             },
             {
               "name": "markdown",
-              "value": "={{ $('Prune JSON from LLM').item.json.clean_response }}"
+              "value": "={{ $('AI Agent').item.json.output }}"
             },
             {
               "name": "parentId",
@@ -341,7 +318,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        608,
+        432,
         -224
       ],
       "id": "b12df80a-8381-4893-a9a9-8df98dd6cca9",
@@ -427,7 +404,7 @@
       "main": [
         [
           {
-            "node": "Prune JSON from LLM",
+            "node": "Is Webex?",
             "type": "main",
             "index": 0
           }
@@ -451,17 +428,6 @@
           {
             "node": "AI Agent",
             "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Prune JSON from LLM": {
-      "main": [
-        [
-          {
-            "node": "Is Webex?",
-            "type": "main",
             "index": 0
           }
         ]
@@ -556,10 +522,9 @@
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
-    "executionTimeout": -1,
     "availableInMCP": false
   },
-  "versionId": "d89a7669-3735-43c5-acb8-f342a3824f59",
+  "versionId": "c22c6e6a-1a9f-4461-99d0-38f645b8f9d9",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "4de9a42c87eda9a4c640b17c25b85d3671e6543b0f5e167813e98f66b3cf2d02"

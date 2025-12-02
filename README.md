@@ -9,8 +9,6 @@
 <img src="https://img.shields.io/badge/MCP-Protocol-000000?style=flat-square&logo=anthropic&logoColor=white" alt="MCP">
 <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
 <img src="https://img.shields.io/badge/Docker-Required-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker">
-<img src="https://img.shields.io/badge/Slack-Enabled-4A154B?style=flat-square&logo=slack&logoColor=white" alt="Slack">
-<img src="https://img.shields.io/badge/Webex-Enabled-0099CC?style=flat-square&logo=webex&logoColor=white" alt="Webex">
 </div></h1>
 
 <div align="center">
@@ -51,10 +49,10 @@ Before diving in, make sure you have these essentials ready:
 ## 🚦 Getting Started
 
 1. **Clone this repository** to your local machine
-2. **Navigate to the `n8n` directory** - This is where the magic happens!
+2. **Navigate to the `n8n` directory**
 3. **Explore the workflow folders** - Each folder contains:
    - 📄 A `.json` workflow file ready to import into n8n
-   - 📚 Dedicated documentation explaining setup and usage
+   - 📚 Dedicated documentation in `.md` files explaining setup and usage
 
 Each workflow is self-contained with its own configuration and detailed instructions. Simply pick the one that fits your use case and follow along! 🎓
 

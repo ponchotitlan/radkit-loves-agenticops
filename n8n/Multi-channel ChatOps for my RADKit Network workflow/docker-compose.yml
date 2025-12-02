@@ -14,18 +14,14 @@ services:
       
       # Webhook URL - Get your static domain from https://dashboard.ngrok.com/cloud-edge/domains
       # Then replace YOUR-STATIC-DOMAIN below with it (e.g., abc-123-def.ngrok-free.app)
-      - WEBHOOK_URL=https://unglamourous-cannon-nonintoxicative.ngrok-free.dev/
+      - WEBHOOK_URL=YOUR-STATIC-DOMAIN
       
-      # Fix webhook permissions issue
       - N8N_USER_MANAGEMENT_DISABLED=true
-      
-      # Workflow settings
       - EXECUTIONS_DATA_SAVE_ON_SUCCESS=all
       - EXECUTIONS_DATA_SAVE_ON_ERROR=all
       - EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS=true
       
     volumes:
-      # Persist n8n data
       - n8n_data:/home/node/.n8n
       
     healthcheck:
@@ -42,12 +38,12 @@ services:
     command:
       - "http"
       - "n8n:5678"
-      - "--domain=unglamourous-cannon-nonintoxicative.ngrok-free.dev"
+      - "--domain=YOUR-STATIC-DOMAIN"
     environment:
       # Get your auth token from https://dashboard.ngrok.com/get-started/your-authtoken
-      - NGROK_AUTHTOKEN=1hcrz1dq4dPixKCAFM9LOkhwXcd_6LdC5TtR3ejoQuAnNAmv4
+      - NGROK_AUTHTOKEN=YOUR_NGROK_TOKEN
     ports:
-      - "4040:4040"  # ngrok web interface
+      - "4040:4040"
     depends_on:
       - n8n
 
