@@ -9,6 +9,9 @@
 <img src="https://img.shields.io/badge/MCP-Protocol-000000?style=flat-square&logo=anthropic&logoColor=white" alt="MCP">
 <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
 <img src="https://img.shields.io/badge/Docker-Required-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker">
+</div>
+<div align="center">
+<a href="https://deepwiki.com/ponchotitlan/radkit-loves-agenticops"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
 </div></h1>
 
 <div align="center">
