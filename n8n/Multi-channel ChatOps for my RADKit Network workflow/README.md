@@ -24,6 +24,11 @@ This workflow creates a unified AI assistant that:
 <img src="https://img.shields.io/badge/Docker-Required-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker">
 <img src="https://img.shields.io/badge/Slack-Enabled-4A154B?style=flat-square&logo=slack&logoColor=white" alt="Slack">
 <img src="https://img.shields.io/badge/Webex-Enabled-0099CC?style=flat-square&logo=webex&logoColor=white" alt="Webex">
+</div></br>
+<div align="center">
+<a href="https://www.youtube.com/watch?v=8rE-WYWWIoE">
+  <img src="https://img.shields.io/badge/Watch%20Hack%20The%20RADKit!%20Episode%20now-FF0000?style=flat-square&logo=youtube&logoColor=white" alt="Watch on YouTube">
+</a>
 </div>
 
 ## 🔑 Key Components
