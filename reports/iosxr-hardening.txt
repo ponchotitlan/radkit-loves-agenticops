@@ -1,4 +1,3 @@
 - File Prefix: hardening_status
 - Query: Compliance with hardening guide
-- Intent: Compliance with hardening guide
 - Notes: IOSXR devices only. Hardening guide in this URL: https://sec.cloudapps.cisco.com/security/center/resources/Cisco-IOS-XR-HardeningGuide
