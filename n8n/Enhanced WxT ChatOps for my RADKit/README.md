@@ -1,8 +1,7 @@
 # ⚙️ Enhanced WxT ChatOps for my RADKit Workflow (n8n + Webex Teams)
 
 <div align="center">
-<img src="../images/chatops_wxt_workflow_read.png"/>
-<img src="../images/chatops_wxt_workflow_write.png"/>
+<img src="../../images/enhanced_chatops_arch.png"/>
 </div>
 
 A practical **low-code, agentic ChatOps workflow** built in **n8n** for safe network automation via **Webex Teams**.  
