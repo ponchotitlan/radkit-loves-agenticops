@@ -69,7 +69,7 @@ uv run --no-sync radkit-llm mcp-server \
 
 After running this command, your MCP server should be available at `http://localhost:8082/mcp`. To use it in your n8n workflows, update the `MCP Client` block found on each with this URL.
 
-## 🐳 Docker-based deployment of the MCP server
+## 🐳 Docker-based deployment of the MCP server, n8n and Cloudflare tunnel
 
 There is a [docker-compose](docker-compose.yml) file available in this repository to launch the MCP server inside of a container.
 

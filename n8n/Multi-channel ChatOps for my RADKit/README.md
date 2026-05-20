@@ -32,20 +32,31 @@ This workflow creates a unified AI assistant that:
 </a>
 </div>
 
+
 ## 🛠️ Setup
 
-This workflow uses a **Cloudflare tunnel + domain** for the Webex/Slack webhooks, plus an instance of the **official RADKit MCP server**. To set this up, check [this guide](https://github.com/ponchotitlan/radkit-loves-agenticops/blob/main/docs/HOWTO-RADKIT-MCP.md#-docker-based-deployment-of-the-mcp-server).
+### 1. Cloudflare Tunnel and Cisco RADKit MCP servers containers
 
-### n8n workflow import
+Webex Teams webhooks require a **publicly reachable HTTPS endpoint**. This project includes a Docker Compose service for Cloudflare tunnel + custom domain options for n8n.
+
+The Cloudflare flow looks like this:
+
+```
+n8n.yourdomain.com  →  Cloudflare Tunnel  →  n8n (container, port 5678)
+```
+
+To set this up along with the Cisco RADKit MCP servers as containers, check [this guide](../../docs/HOWTO-RADKIT-MCP.md#-docker-based-deployment-of-the-mcp-server).
+
+### 2. Webex Setup
+✅💬 See [this frustration-free guide!](../../docs/WEBEX-SETUP.md)
+
+### 3. Slack Setup
+✅💬 See [this frustration-free guide!](../../docs/SLACK-SETUP.md)
+
+### 4. n8n workflow import
 1. Navigate to your n8n instance on a web browser
 2. Create a new workflow
 3. Import the file [Multi-Channel ChatOps for my Cisco RADKit network.json](Multi-Channel%20ChatOps%20for%20my%20Cisco%20RADKit%20network.json) included in this repository
-
-### Slack Setup
-✅💬 See [this frustration-free guide!](../../docs/SLACK-SETUP.md)
-
-### Webex Setup
-✅💬 See [this frustration-free guide!](../../docs/WEBEX-SETUP.md)
 
 
 ## 🔑 Key Components
