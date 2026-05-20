@@ -14,7 +14,7 @@ This document describes how to setup your Webex system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/webex_integration.png"/>
+<img src="../images/webex_integration.png"/>
 </div>
 </br>
 
@@ -22,7 +22,7 @@ This document describes how to setup your Webex system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/webex_account.png"/>
+<img src="../images/webex_account.png"/>
 </div>
 </br>
 
@@ -32,7 +32,7 @@ This document describes how to setup your Webex system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/webex_bot_access_token.png"/>
+<img src="../images/webex_bot_access_token.png"/>
 </div>
 </br>
 
@@ -40,7 +40,7 @@ This document describes how to setup your Webex system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/webex_bot_id.png"/>
+<img src="../images/webex_bot_id.png"/>
 </div>
 </br>
 
@@ -48,7 +48,7 @@ This document describes how to setup your Webex system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/is_bot_mentioned_config.png"/>
+<img src="../images/is_bot_mentioned_config.png"/>
 </div>
 </br>
 
@@ -58,13 +58,13 @@ This document describes how to setup your Webex system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/send_message_webex_01.png"/>
+<img src="../images/send_message_webex_01.png"/>
 </div>
 </br>
 
 </br>
 <div align="center">
-<img src="images/webex_post_header_auth_account.png"/>
+<img src="../images/webex_post_header_auth_account.png"/>
 </div>
 </br>
 
@@ -78,7 +78,7 @@ This document describes how to setup your Webex system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/webex_test_room_message.png"/>
+<img src="../images/webex_test_room_message.png"/>
 </div>
 </br>
 
@@ -87,7 +87,7 @@ This document describes how to setup your Webex system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/webex_room_check.png"/>
+<img src="../images/webex_room_check.png"/>
 </div>
 </br>
 
@@ -97,6 +97,6 @@ This document describes how to setup your Webex system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/webex_chat_example.png"/>
+<img src="../images/webex_chat_example.png"/>
 </div>
 </br>

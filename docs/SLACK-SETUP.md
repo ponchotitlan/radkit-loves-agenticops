@@ -7,7 +7,7 @@ This document describes how to setup your Slack system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/slack_workspace.png"/>
+<img src="../images/slack_workspace.png"/>
 </div>
 </br>
 
@@ -15,7 +15,7 @@ This document describes how to setup your Slack system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/slack_app.png"/>
+<img src="../images/slack_app.png"/>
 </div>
 </br>
 
@@ -34,7 +34,7 @@ This document describes how to setup your Slack system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/slack_oauth_token.png"/>
+<img src="../images/slack_oauth_token.png"/>
 </div>
 </br>
 
@@ -44,7 +44,7 @@ This document describes how to setup your Slack system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/slack_account.png"/>
+<img src="../images/slack_account.png"/>
 </div>
 </br>
 
@@ -57,7 +57,7 @@ This document describes how to setup your Slack system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/slack_webhook.png"/>
+<img src="../images/slack_webhook.png"/>
 </div>
 </br>
 
@@ -65,7 +65,7 @@ This document describes how to setup your Slack system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/slack_event_subs_url.png"/>
+<img src="../images/slack_event_subs_url.png"/>
 </div>
 </br>
 
@@ -73,7 +73,7 @@ This document describes how to setup your Slack system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/slack_test.png"/>
+<img src="../images/slack_test.png"/>
 </div>
 </br>
 
@@ -81,7 +81,7 @@ This document describes how to setup your Slack system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/slack_subscribe_events.png"/>
+<img src="../images/slack_subscribe_events.png"/>
 </div>
 </br>
 
@@ -89,7 +89,7 @@ This document describes how to setup your Slack system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/slack_reinstall_app.png"/>
+<img src="../images/slack_reinstall_app.png"/>
 </div>
 </br>
 
@@ -97,6 +97,6 @@ This document describes how to setup your Slack system for interacting with the 
 
 </br>
 <div align="center">
-<img src="images/slack_chat_example.png"/>
+<img src="../images/slack_chat_example.png"/>
 </div>
 </br>
