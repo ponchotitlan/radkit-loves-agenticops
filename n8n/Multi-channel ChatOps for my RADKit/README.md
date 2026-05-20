@@ -13,7 +13,7 @@ This workflow creates a unified AI assistant that:
 
 </br>
 <div align="center">
-<img src="images/chatops_n8n.png"/>
+<img src="../../images/chatops_n8n.png"/>
 </div></br>
 
 <div align="center">
@@ -34,7 +34,7 @@ This workflow creates a unified AI assistant that:
 
 ## 🛠️ Setup
 
-This workflow uses a **Cloudflare tunnel + domain** for the Webex/Slack webhooks, plus an instance of the **official RADKit MCP server**. To set this up, check [this guide](../../HOWTO-RADKIT-MCP.md).
+This workflow uses a **Cloudflare tunnel + domain** for the Webex/Slack webhooks, plus an instance of the **official RADKit MCP server**. To set this up, check [this guide](https://github.com/ponchotitlan/radkit-loves-agenticops/blob/main/docs/HOWTO-RADKIT-MCP.md#-docker-based-deployment-of-the-mcp-server).
 
 ### n8n workflow import
 1. Navigate to your n8n instance on a web browser
@@ -42,10 +42,10 @@ This workflow uses a **Cloudflare tunnel + domain** for the Webex/Slack webhooks
 3. Import the file [Multi-Channel ChatOps for my Cisco RADKit network.json](Multi-Channel%20ChatOps%20for%20my%20Cisco%20RADKit%20network.json) included in this repository
 
 ### Slack Setup
-✅💬 See [this frustration-free guide!](https://github.com/ponchotitlan/radkit-loves-agenticops/blob/main/n8n/Multi-channel%20ChatOps%20for%20my%20RADKit%20Network%20workflow/slack_setup.md)
+✅💬 See [this frustration-free guide!](../../docs/SLACK-SETUP.md)
 
 ### Webex Setup
-✅💬 See [this frustration-free guide!](https://github.com/ponchotitlan/radkit-loves-agenticops/blob/main/n8n/Multi-channel%20ChatOps%20for%20my%20RADKit%20Network%20workflow/cisco_webex_setup.md)
+✅💬 See [this frustration-free guide!](../../docs/WEBEX-SETUP.md)
 
 
 ## 🔑 Key Components
@@ -59,7 +59,7 @@ This workflow uses a **Cloudflare tunnel + domain** for the Webex/Slack webhooks
 
 </br>
 <div align="center">
-<img src="images/slack_trigger_config.png"/>
+<img src="../../images/slack_trigger_config.png"/>
 </div>
 
 #### 1️⃣ 2️⃣ 3️⃣ Webex Trigger
@@ -70,9 +70,9 @@ This workflow uses a **Cloudflare tunnel + domain** for the Webex/Slack webhooks
 
 </br>
 <div align="center">
-<img src="images/webex_trigger_config.png"/></br>
-<img src="images/is_bot_mentioned_config.png"/></br>
-<img src="images/get_message_text_config.png"/>
+<img src="../../images/webex_trigger_config.png"/></br>
+<img src="../../images/is_bot_mentioned_config.png"/></br>
+<img src="../../images/get_message_text_config.png"/>
 </div>
 
 ### **Normalization Layer**
@@ -90,8 +90,8 @@ This workflow uses a **Cloudflare tunnel + domain** for the Webex/Slack webhooks
 
 </br>
 <div align="center">
-<img src="images/normalize_for_webex.png"/></br>
-<img src="images/normalize_for_slack.png"/>
+<img src="../../images/normalize_for_webex.png"/></br>
+<img src="../../images/normalize_for_slack.png"/>
 </div>
 </br>
 
@@ -100,7 +100,7 @@ This workflow uses a **Cloudflare tunnel + domain** for the Webex/Slack webhooks
 
 </br>
 <div align="center">
-<img src="images/merge_config.png"/>
+<img src="../../images/merge_config.png"/>
 </div>
 
 ### **AI Processing Engine**
@@ -116,7 +116,7 @@ This workflow uses a **Cloudflare tunnel + domain** for the Webex/Slack webhooks
 
 </br>
 <div align="center">
-<img src="images/ai_agent_config.png"/>
+<img src="../../images/ai_agent_config.png"/>
 </div>
 </br>
 
@@ -137,8 +137,8 @@ Be helpful, professional, and conversational.
 
 </br>
 <div align="center">
-<img src="images/memory_config.png"/></br>
-<img src="images/mcp_server_config.png"/>
+<img src="../../images/memory_config.png"/></br>
+<img src="../../images/mcp_server_config.png"/>
 </div>
 </br>
 
@@ -153,7 +153,7 @@ Be helpful, professional, and conversational.
 
 </br>
 <div align="center">
-<img src="images/is_webex_config.png"/>
+<img src="../../images/is_webex_config.png"/>
 </div>
 </br>
 
@@ -166,7 +166,7 @@ Be helpful, professional, and conversational.
 
 </br>
 <div align="center">
-<img src="images/send_message_slack_config.png"/>
+<img src="../../images/send_message_slack_config.png"/>
 </div>
 </br>
 
@@ -178,8 +178,8 @@ Be helpful, professional, and conversational.
 
 </br>
 <div align="center">
-<img src="images/send_message_webex_01.png"/></br>
-<img src="images/send_message_webex_02.png"/>
+<img src="../../images/send_message_webex_01.png"/></br>
+<img src="../../images/send_message_webex_02.png"/>
 </div>
 </br>
 
@@ -218,13 +218,13 @@ User sees: "Based on the device information retrieved for p0-2e, here are the ke
 ```
 
 <div align="center">
-<img src="images/slack_chat_example.png"/>
+<img src="../../images/slack_chat_example.png"/>
 </div></br>
 
 The same experience can be obtained using `Cisco Webex`:
 
 <div align="center">
-<img src="images/webex_chat_example.png"/>
+<img src="../../images/webex_chat_example.png"/>
 </div>
 
 ---
